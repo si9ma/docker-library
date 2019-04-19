@@ -1,6 +1,5 @@
 # clone from https://github.com/bijukunjummen/docker-rabbitmq-cluster
 FROM centos
-MAINTAINER si9ma si9may@tom.com
 
 RUN yum install -y wget unzip tar
 
