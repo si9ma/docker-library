@@ -7,7 +7,9 @@
 check_need() {
     for need in $@ 
     do
-        command -v $need > /dev/null 2>&1 || (echo "Please Install $need" && exit 1)
+        if ! command -v $need > /dev/null 2>&1; then
+            echo "Please Install $need" && exit 1
+        fi
     done
 }
 
