@@ -43,6 +43,10 @@ services:
     volumes:
       - ./haproxy:/usr/local/etc/haproxy/:ro
     hostname: haproxy
+    depends_on:
+      - rabbit1
+      - rabbit2
+      - rabbit3
     ports:
       - "5672:5672" # rabbitmq port
       - "15672:15672" # rabbitmq management port

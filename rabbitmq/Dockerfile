@@ -16,7 +16,7 @@ RUN /usr/sbin/rabbitmq-plugins enable --offline rabbitmq_mqtt rabbitmq_stomp rab
 
 ADD rabbitmq.config /etc/rabbitmq/
 ADD erlang.cookie /var/lib/rabbitmq/.erlang.cookie
-ADD startrabbit.sh /opt/rabbit/
+ADD ./startrabbit.sh /opt/rabbit/
 
 RUN chmod u+rw /etc/rabbitmq/rabbitmq.config \
 && chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie \

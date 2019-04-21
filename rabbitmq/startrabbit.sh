@@ -1,10 +1,10 @@
 #!/bin/bash
 
 change_default_user() {
-	
+
 	if [ -z $RABBITMQ_DEFAULT_USER ] && [ -z $RABBITMQ_DEFAULT_PASS ]; then
 		echo "Maintaining default 'guest' user"
-	else 
+	else
 		echo "Removing 'guest' user and adding ${RABBITMQ_DEFAULT_USER}"
 		rabbitmqctl delete_user guest
 		rabbitmqctl add_user $RABBITMQ_DEFAULT_USER $RABBITMQ_DEFAULT_PASS
@@ -19,7 +19,7 @@ if [ -z "$CLUSTERED" ]; then
 	# if not clustered then start it normally as if it is a single server
 	/usr/sbin/rabbitmq-server &
 	rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
-	change_default_user	
+	change_default_user
 	tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
 else
 	if [ -z "$CLUSTER_WITH" ]; then
@@ -38,7 +38,8 @@ else
 			rabbitmqctl join_cluster --ram rabbit@$CLUSTER_WITH
 		fi
 		rabbitmqctl start_app
-                
+        rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}' # enable ha policy
+
 		# Tail to keep the a foreground process active..
 		tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
 	fi
