@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
     redis:
-        image: si9ma/redis:5.0.4
+        image: si9ma/redis:5.0.4-alpine
         hostname: "{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}"
         build:
           context: .
