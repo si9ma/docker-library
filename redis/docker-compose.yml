@@ -2,11 +2,16 @@ version: '3.6'
 
 services:
     redis:
-        image: si9ma/redis:5
+        image: si9ma/redis:5.0.4
+        hostname: "{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}"
         build:
           context: .
         environment:
-          - CLUSTER_MOD=true
+          - CLUSTERED=true
+          - CLUSTER_NODES=6 # this value must equal to replicas
+          - CLUSTER_SETUPER_SLOT=1 # the first slot task to setup cluster
+          - SERVICE_NAME={{.Service.Name}}
+          - SLOT={{.Task.Slot}}
         networks:
             - net
         deploy:
