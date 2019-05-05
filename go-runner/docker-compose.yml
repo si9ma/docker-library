@@ -1,0 +1,15 @@
+version: '3'
+services: 
+  go-debug:
+    image: si9ma/go-runner:1.0
+    environment: 
+      - MODE=DEBUG
+    build: 
+      context: .
+    volumes: 
+      - "$GOPATH/src:/go/src" # just map src, avoid overwrite dlv(bin)
+    networks: 
+      - debug_net
+
+networks: 
+  debug_net:
