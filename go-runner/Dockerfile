@@ -18,6 +18,9 @@ ENV GOARCH=amd64
 
 EXPOSE 2345
 
+RUN mkdir /work
+WORKDIR /work
+
 # install dlv
 RUN go get -v -u github.com/derekparker/delve/cmd/dlv
 
